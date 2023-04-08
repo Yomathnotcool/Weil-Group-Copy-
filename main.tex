@@ -1,0 +1,506 @@
+\documentclass[12pt,a4paper,english]{article}
+\usepackage{tikz-cd}
+\usepackage[a4paper]{geometry}
+\usepackage{babel}
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{color}
+\usepackage{array}
+\usepackage{graphicx}
+
+\geometry{top=3cm,bottom=3cm,left=2.5cm,right=2.5cm}
+\setlength\parindent{0pt}
+\renewcommand{\baselinestretch}{1.3}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the overline with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+  
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+\newtheorem*{ex}{Example}
+\newtheorem*{rem}{Remark}
+
+\theoremstyle{plain}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{coro}{Corollary}
+\newtheorem{cla}{Claim}
+\newtheorem{pf}{Proof}
+
+\title{Representation of Weil group}
+\date{November  2021}
+\author{Deng$\alpha\beta$ zhiyuan}
+
+
+
+\begin{document}
+
+\maketitle
+
+\vspace{0.5cm}
+
+\begin{abstract}
+    In this note, we try to explain the absolute Galois group. Then by the inverse image in absolute Galois group, we define the Weil group in local non-archimedean case. In order to give definition of weil group, we introduce the define in Tate's thesis, which is well-defined for everything. Then we can introduce some example for Weil group in local archimedean and its representation theory. After the trivial case, we give information about smooth representation of Weil group in local non-archimedean case. The major result here is irreducible representation of Weil group is finite dimensional and the semisimplity of the representation of Weil group.
+\end{abstract}
+\section{Definition of Weil Group}
+Let $F$ be the field of fraction of a discrete valuation ring $\mathfrak{o}$. Let $\mathfrak{p}$ be the max ideal of $\mathfrak{o}$. The residue field is denoted as $\kappa= \mathfrak{o}/\mathfrak{p}$, and $|\kappa|=q$.
+
+\subsection{Galois theory for preparation}
+\begin{defi}
+Set $\Omega_{F}=\textbf{Gal}(\overline{F}/F)=\varprojlim\textbf{Gal}(E/F)$, where the inverse limit is taken over every finite Galois extension $E$ of $F$. The $\overline{F}$ is the separable algeraic closure. $\Omega_{F}$ is so called absolute Galois group.
+\end{defi}
+ For $F\subset_{finite} K\subset\overline{F}$, $\Omega_{K}=\textbf{Gal}(\overline{F}/K)$ is the open subgroup of $\Omega_{F}$, which is defined using Krull topology.
+ \begin{defi}
+\emph{Krull Topology}
+\begin{enumerate}
+    \item Let $K/F$ be a Galois extension, we denote a set of finite Galois extension as
+$$\mathcal{L}=\{L|L\ \text{is a subfield of }K \ s.t.\ L/F \text{\ is a finite Galois extension}\}.$$
+We define a topology in $\textbf{Gal}(K/F)$ by taking as a base of open neighborhoods of 1 the family of sugroups 
+$$\mathcal{N}=\{\textbf{Gal}(K/L)|L\in \mathcal{F}\}.$$
+\item The Krull Topology on $\textbf{Gal}(K/F)$ is defined as follows:  A subset $X$ of $\text{Gal}(L/K)$ is open if it's empty or $X=\bigcup\limits_{i}g_{i}N_{i}$ for some $g_{i}\in G$ and $N_{i}\in\mathcal{N}$. In this case, the basis of Krull Topology is $\{gN|g\in G,N\in\mathcal{N}\}.$
+\end{enumerate}
+Because this is a topological group $G$, then the translation map $\lambda_{g}:G\rightarrow G$ given by $x\mapsto gx$ is a homeomorphism that sends 1 to $g$. 
+\end{defi}
+ $F$ admits a unique unramfied extension $F_{m}$ of degree $m$ for each $m\geq 1$. Let $F_{\infty}$ denote the composite of all these $F_{m}$. Thus $F_{\infty}/F$ is the unique maximal unramified extension of $F$.
+\begin{cla}
+$k_{F_{m}}\cong \mathbb{F}_{q^{m}}$, and $\textbf{Gal}(F_{m}/F)$ is cyclic.
+\end{cla}
+\begin{pf}
+Sketch: By the definition of $F_{m}$, $[F_{m}:F]=[\kappa_{F_{m}}:\kappa_{F}]=[\mathbb{F}_{q^{m}}:\mathbb{F}_{q}]$.
+\end{pf}
+ \begin{cla}
+ When $F$ is a finite field, 
+ \begin{equation*}
+     \Omega_{F}=\textbf{Gal}(\overline{F}/F)=\textbf{Gal}(\bigcup\limits^{\infty}_{n=1}\mathbb{F}_{q^{n}}/\mathbb{F}_{q})=\lim\limits_{\leftarrow}\textbf{Gal}(\mathbb{F}_{q^{n}}/\mathbb{F}_{q})\cong\hat{\mathbb{Z}}
+ \end{equation*}
+ 
+ And for the unique maximal unramified extension of local field we said above, we can have that 
+ \begin{equation*}
+     \textbf{Gal}(F_{\infty}/F)=\lim\limits_{\leftarrow} \textbf{Gal}(F_{m}/F)=\lim_{\leftarrow}\mathbb{Z}/m\mathbb{Z}=\hat{\mathbb{Z}}.
+ \end{equation*}
+ \end{cla}
+ \begin{rem}
+ Given another separable algebraic closure of $F$, denote it as $\Tilde{F}$. We have the isomorphism between $\textbf{Gal}(\Tilde{F}/F)\cong\textbf{Gal}(\overline{F}/F)$, and this isomorphism induces another bijection between the isomorphism equivalence class of the irreducible representations of  $\textbf{Gal}(\Tilde{F}/F)$ and $\textbf{Gal}(\overline{F}/F)$
+ \end{rem}
+
+
+Before we move forward, we introduce more information about $\hat{\mathbb{Z}}$.
+\begin{cla}
+$\lim\limits_{\xleftarrow\limits_{m\geq 1}} \mathbb{Z}/m\mathbb{Z}\cong\prod\limits_{l}\mathbb{Z}_{l}=\hat{\mathbb{Z}}$. And
+$\phi: \mathbb{Z}\rightarrow\hat{\mathbb{Z}}$ has dense image and injective.
+
+
+
+Based the isomorphism we got here, we can easily show that there is an example that some element in $\hat{Z}$ but not in $Z$. $(1,0,...)\not=0$ in which the $1\in \mathbb{Z}_{2}$ and $(0,1,0,...)\not=0$ in which $1\in \mathbb{Z}_{3}$. But the product of those two elements are clearly 0. So these two elements are divisors which is impossible in $\mathbb{Z}$ as we knew since babies.
+
+So $\hat{\mathbb{Z}}$ is way bigger than $\mathbb{Z}$.
+\end{cla}
+
+
+
+
+\begin{defi}\emph{Frobenius Elements}:
+There is an isomorphism, $\Phi:\hat{\mathbb{Z}}\cong\textbf{Gal}(\overline{\kappa}/\kappa)=\textbf{Gal}(F_{\infty}/F)$. The $\Phi$ maps an element $(a_{n})_{n\in\mathbb{Z}_{\geq 0}}$ to automorphism of $\kappa$. We define the inverse of this map as 
+\begin{equation*}
+    \Phi^{-1}((a_{n})_{n})|_{\mathbb{F}_{q^{n}}}=(x\mapsto x^{q^{a_{n}}})
+\end{equation*}
+Denote that $\psi_{F}=\Phi(1)$ is the so called \textit{geometric Frobenius substitution}. And the inverse is called the \textit{arithmetic Frobenius substitution}.
+
+Any element of $\Omega_{F}$ whose restriction to $F_{\infty}$ is $\psi_{F}$ is called a Frobenius element.
+\end{defi}
+
+\begin{defi}
+\emph{Topologically generated}, which makes sense when you know \emph{Krull topology}. But it's impossible to cover all the details.
+
+If $G$ is a topological group and $S$ is a subset of $G$, we say that $S$ topologically generates $G$ if the closure of the subgroup generated by $S$ is equal to $G$.
+\end{defi}
+\begin{rem}
+$\mathbb{Z}=<\psi_{F}>,\hat{\mathbb{Z}}=\overline{<\psi_{F}>}$, which gives some ideas that the profinite completion is way bigger than the $\mathbb{Z}$.
+\end{rem}
+\begin{defi}
+\emph{Fixed Field}:
+
+If $K$ is any field, and $P$ is any group of automorphism of $K$, we define the fixed field as 
+\begin{equation*}
+    K^{P}:=\{x\in K|\sigma(x)=x\ \text{for all}\ \sigma\in P\}
+\end{equation*}
+
+The fixed field $\overline{K}^{I_{K}}$ of $I_{K}$ in $\overline{K}$ is $K^{nr}$, the union of all unramified extensions of $K$ in $\overline{K}$.
+\end{defi}
+Let $\mathcal{O}_{\overline{F}}$ be the ring of integers of the algebraic closure $\overline{F}$ of $F$. Every element of $Gal(\overline{F}/F)$ defines an automorphism of $\mathcal{O}_{\overline{F}}$ which reduces to an automorphism of the residue field $\overline{\kappa}$ of $\mathcal{O}_{\overline{F}}$. We get a surjective map
+\begin{equation*}
+     \Upsilon: Gal(\overline{F}/F)\rightarrow Gal(\overline{\kappa}/\kappa) 
+\end{equation*}
+whose kernel is by definition the inertia group $I_{K}$ of $K$.
+\begin{defi}
+Let $\mathfrak{P}$ be a prime of $K$. Then the \emph{decomposition group} and \emph{inertia group} of $\mathfrak{P}$ are defined by
+\begin{enumerate}
+    \item[*] $D_{\mathfrak{P}}:=\{\sigma\in Gal(\overline{K}/K)| \sigma(\mathfrak{P})=\mathfrak{P}\}$;
+    \item[*] $I_{\mathfrak{P}}:=\{\sigma\in Gal(\overline{K}/K)| \sigma(\alpha)=\alpha\ \textbf{mod}\ \mathfrak{P}\ \text{ for all }\ \alpha\in\mathcal{O}_{K}\}$
+\end{enumerate}
+\end{defi}
+The group $\textbf{Gal}(\overline{\kappa}/\kappa)$ is topologically generated by the arithmetic Frobenius automorphism $\sigma_{K}$ which sends to $x\in\overline{\kappa}$ to $x^{q}$. It contains the free abelian group $<\sigma_{K}>$ generated by $\sigma_{K}$ as a subgroup.
+\subsection{Definition on section 28 for local non-archimedean field}
+In this section, we obtain the notation from tate's "Number Theory Background".
+
+ If $G$ is a topological group, $G^{c}$ is the closure of its commutator subgroup, and $G^{ab}=G/G^{c}$ is the maximal abelian Hausdorff quotient of $G$. We begin with the exact sequence for $E$ finite Galois extension of $F$.  
+\begin{equation*}
+    1\rightarrow \mathcal{I}_{E/F}\rightarrow Gal(E/F) \rightarrow Gal(k_{E}/k_{F})\rightarrow 0
+\end{equation*}
+Furthermore, we can put this sequence into this
+\begin{equation*}
+    1\rightarrow \mathcal{I}_{F}=Gal(\overline{F}/F_{\infty})\rightarrow \Omega_{F}\rightarrow Gal(F_{\infty}/F)\cong \hat{Z}\rightarrow 0 
+\end{equation*}
+
+
+
+
+Let $_{a}{\mathcal{W}_{F}}$ denote the inverse image in $\Omega_{F}$ of the cyclic subgroup $<\phi_{F}>$ of $Gal(F_{\infty}/F)$. Thus it's the dense subgroup of $\Omega_{F}$ generated by the Frobenius elements. It is normal in $\Omega_{F}$ and it fits into an exact sequence (of abstract groups)
+
+\begin{center}
+
+\begin{tikzcd}
+1 \arrow[r] & I_{F} \arrow[r] \arrow[d, equal] & \Omega_{F} \arrow[r, "\Gamma"]                                              & \hat{\mathbb{Z}} \arrow[r]                                          & 0 \\
+1 \arrow[r] & I_{F} \arrow[r]                                & _{a}W_{F} \arrow[r, "v_{F}"] \arrow[u, hook] \arrow[d, equal] & \mathbb{Z} \arrow[r] \arrow[u, hook] \arrow[d,equal] & 0 \\
+            &                                                & \Gamma^{-1}(<\psi_{F}>)                                                     & <\psi_{F}>                                                          &  
+\end{tikzcd}
+    
+\end{center}
+
+\begin{defi}
+The Weil group $\mathcal{W}_{F}$ of $F$ (relative to $\overline{F}/F$) is the topological group, with underlying abstract group $_{a}\mathcal{W}_{F}$, so that 
+\begin{enumerate}
+    \item $\mathcal{I}_{F}$ is an open subgroup of $\mathcal{W}_{F}$;
+    \item the topology on $\mathcal{I}_{F}$, as subspace of $\mathcal{W}_{F}$, coincides with its natural topology as $Gal(\overline{F}/F_{\infty})\subset\Omega_{F}$.
+\end{enumerate}
+The definition of $\mathcal{W}_{F}$ does depend on the choice of $\overline{F}/F$, but only up to inner automorphism of $\Omega_{F}$.
+\end{defi}
+\begin{rem}
+Given a chosen Frobenius element $\psi\in \mathcal{W}_{F}$ induces a right splitting of the exact sequence as above. we get that the decomposition $_{a}\mathcal{W}_{F}=I_{F}\rtimes \mathbb{Z}$
+\end{rem}
+\begin{rem}
+If another extension $K$ that $F\subset K\subset\overline{F}$, then we have commutative diagram:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYQBfU9TXfIRTtyVWoxZsAkgH1gAMS7deIDNjwEiAJlHV6zVohAAdYwFs6OABYBjRsADqXOQGklPPusFEAzLvEGbKYW1gBGocAAWu4qagKaKAAs-vqSRsTKnvFCJKTsYqmGHJmq-Bo5Ivl6EkWyCjFZ5dp5BTVsDnKKJXFNKH5VAWkm5pZW4VENpV4JyMkDhWwZXGIwUADm8ESgAGYAThBmSGQgOBBI7B4gewdIAKzUp0gAbJfXh4giJ2eIWq-7708Ht8AOx-G4-IFIPyDIo0VyTN5IYGQxAADmqgSMcPqJURaJRAE4we9oY9EIliUiUToTnQsAw2FYIBAANa4-5IdFfKEPOkMoxM1ns8GfMmAkAMLBgIpQCBMUIMVjUKwwOhQNiQaUgXn0jUEVjLLhAA
+\begin{tikzcd}
+1 \arrow[r] & I_{F} \arrow[r] \arrow[d,equal] & \mathcal{W}_{K} \arrow[r, "v_{K}"]       & \mathbb{Z} \arrow[r]                 & 0 \\
+1 \arrow[r] & I_{F} \arrow[r]                                & W_{F} \arrow[r, "v_{F}"] \arrow[u, hook] & \mathbb{Z} \arrow[r] \arrow[u, hook] & 0
+\end{tikzcd}
+
+
+\end{center}
+since every element of $\Omega_{K}$ that acts on $K_{\infty}$ as $\psi^{n}_{K}$ also acts on $F_{\infty}\subset K_{\infty}$ as a power of Frobenius element.
+
+\end{rem}
+
+
+
+\begin{rem}
+We write $\nu_{F}:\mathcal{W}_{F}\rightarrow\mathbb{Z}$ for the canonical map taking a geometric Frobenius element to 1 and $||x||=q^{-\nu_{F}(x)},x\in\mathcal{W}_{F}.$
+
+Because of the decomposition we get before, that we can write every element as a product or pair of $(x,\psi^{n}_{F})$, in which $x\in I_{F}$ and $\psi^{n}_{F}\in \mathbb{Z}=<\psi_{F}>$. This should give a more concrete understanding about the valuation.
+\end{rem}
+
+
+\begin{rem}
+As the remark before, we can use the decompositon of Weil group to get more information. Before we can move to story of Weil group. Let's add more sense to the product topolofy of semi-direct topology. 
+
+Given a group $G$, consider its normal subgroup $N$ and the subgroup $H$ (not necessarily normal), which holds the condition:
+\begin{equation*}
+    1\rightarrow N\rightarrow G\rightarrow H\rightarrow 1.
+\end{equation*}
+Let $\textbf{Aut}(N)$ denote the group of automorphisms of $N$,then we can get a group homomorphism as $\phi: H\rightarrow\textbf{Aut}(N)$ defined by conjugation, $\phi(h)(n)=hnh^{-1}$, $\forall h\in H$ and $n\in N$. In this way, we can construct a group $G'=(N,H)$ with group operation defined as $(n_{1},h_{1})\circ(n_{2},h_{2})=(n_{1}\phi(h_{1})(n_{2}),h_{1}h_{2})=(n_{1}h_{1}n_{2}h_{1},h_{1}h_{2})$ for $n_{1},\ n_{2}\in N$ and $h_{1},\ h_{2}\in H$. One can verify that $G\cong G'\cong N\rtimes H$. Next step is that in order to keep $\phi$ continuous in a topological group sense as we defined $(n,h)\in N\times H\mapsto \phi(h)(n)\in N$, we defined the semidirect product group to be the Cartesian product $N\times H$, equipped with the multiplication operation as defined above. So the $G$ can become a topological group by the product topological.
+
+
+
+
+
+
+
+
+Then by the definition of semidirect product, we can  verify the topological group is well-defined for Weil group: as a topological group, the multiplication is continuous. First the multiplication is given as:
+\begin{align*}
+    &W_{F}\times W_{F}\rightarrow W_{F}\\
+    \Rightarrow &(I_{F}\rtimes\mathbb{Z})\times (I_{F}\rtimes\mathbb{Z})\rightarrow I_{F}\rtimes \mathbb{Z}\\
+&((x,\psi^{n}_{F}),(y,\psi^{m}_{F}))\rightarrow (x\psi^{n}_{F}y\psi^{-n}_{F},\psi^{n+m}_{F})\\
+\end{align*}
+By the definition of product topology, we can show these two maps are continuous:
+\begin{align*}
+& (I_{F}\rtimes\mathbb{Z})\times (I_{F}\rtimes\mathbb{Z})\rightarrow I_{F}\\
+&((x,\psi^{n}_{F}),(y,\psi^{m}_{F}))\rightarrow x\psi^{n}_{F}y\psi^{-n}_{F}\\
+& (I_{F}\rtimes\mathbb{Z})\times (I_{F}\rtimes\mathbb{Z})\rightarrow\mathbb{Z}\\
+&((x,\psi^{n}_{F}),(y,\psi^{m}_{F}))\rightarrow \psi^{n+m}_{F}
+\end{align*}
+The first map is continuous because the conjugation is continuous. The second one is because for both side the topology is discrete. 
+
+For the inverse,
+\begin{align*}
+    & I_{F}\rtimes\mathbb{Z}\rightarrow I_{F}\\
+    &(x,\psi_{F}^{n})\rightarrow \psi^{-n}_{F}x^{-1}\psi^{n}_{F}\\
+ & I_{F}\rtimes\mathbb{Z}\rightarrow \mathbb{Z}\\
+    &(x,\psi^{n}_{F})\rightarrow \psi^{-n}\\
+\end{align*}
+It's continuous because of the same reasoning as multiplication.
+\end{rem}
+
+
+\begin{rem}
+Thus $\mathcal{W}_{F}$ is locally profinite, and the identity map $\tau_{F}:\mathcal{W}_{F}\rightarrow _{a}\mathcal{W}_{F}\subset\Omega_{F}$ is a continous injection and have dense image as said before. By product topology, $\mathbb{Z}$ has discrete topology, so the topology on $\mathcal{W}_{F}$ is the coarest topology satisfying: a set $U\subset \mathcal{W}_{F}$ is teh open iff $\psi_{F}U$ is open.
+\end{rem}
+\begin{pf}
+Proof for the continuity, which is local matter of the identity on $\mathcal{W}_{F}$, So we can restrict open neighborhood $I_{F}$ of the identity in $\mathcal{W}_{F}$. But $I_{F}$ as s subspace of $\mathcal{W}_{F}$ inherits its given topology from $\Omega_{F}$, so continuity follows.
+
+
+Let $\gamma\in\Omega_{F}$ be an element. Let $U$ be an open set in $\Omega_{F}$ around the identity. To prove the denseness of Weil group, we need to show that $_{a}\mathcal{W}_{F}\bigcap\gamma U\not=0$. Note that $U^{-1}$ is the set of inverse of element of $U$. So it's a open set as $U$ because the inverse operation is continuous. Since the $\Gamma:\Omega_{F}\rightarrow\hat{\mathbb{Z}}$ is a quotient map and is a homomorphism of topological groups, it follows that $\Gamma(U^{-1})$ is an open subset of the topological group $\hat{\mathbb{Z}}$. By denseness of $\mathbb{Z}$ in $\hat{\mathbb{Z}}$, it follows that $\mathbb{Z}$ meets the open neighborhood $\Gamma(\gamma)\Gamma(U^{-1})=\Gamma(\gamma U^{-1})$ around $\Gamma(\gamma)$. Pick some $m\in\mathbb{Z}$ of the form $m=\Gamma(\gamma u^{-1})$ with $u\in U$. By definition, $\gamma u^{-1}\in \mathbb{\pi}^{-1}(\mathbb{Z})=\ _{a}\mathcal{W}_{F}$. Thus, we get $\gamma=wu$ with $w=\gamma u^{-1}\in W$ and $u\in U$.
+
+By this chance, we used similar reasoning that $I_{F}$ is not open in $\mathcal{W}_{F}$ with respect to the induced topology from $\Omega_{F}$. We pick an open set $U$ in $\Omega$ and must prove $U\bigcap \mathcal{W}_{F}\not= I_{F}$. As we have just shown, $\Gamma(U)$ is open in $\hat{\mathbb{Z}}$. Since it contains the identity and $\{m\mathbb{Z}\}$ is a base of opens in $\hat{\mathbb{Z}}$ of identity. There is a $u\in U$ with $\Gamma(u)=m\in \mathbb{Z}
+$ and $m\not=0$. Thus, $u\in U\bigcap \mathcal{W}_{F}$ but $u\not\in I_{F}$ since $m\not=0$. Hence, $U\bigcap\mathcal{W}_{F}\not=I_{F}$.
+\end{pf}
+
+Now we can say we finish the structure of Weil group.
+
+
+
+
+\subsection{Definition from Tate for all kinds of fields}
+The definition we have shown above is only for local non-archimedean case. This definition can fit for all cases. 
+But the definition from Tate is a little bit abstract: he definies the Weil group as a triple $(\mathcal{W}_{F},\phi,\{r_{E}\})$ which is constructed with four conditions:
+\begin{defi}
+$F$ is a local field and $\bar{F}$ is a separable algebraic closure of $F$. Let $E, E',...$ denote finite extensions of $F$ in $\bar{F}$. A Weil group for $\bar{F}/F$ is not really just a group but a triple $(\mathcal{W}_{F},\phi,\{r_{E}\})$. The first two ingredients are a topological group $\mathcal{W}_{F}$ and a continuous homomorphism $\phi: W_{F}\rightarrow G_{F}=Gal(\bar{F}/E)$ with dense image. Given $\mathcal{W}_{F}$ and $\phi$, we put $\mathcal{W}_{E}=\phi^{-1}(G_{E})$ for each finite extension $E$ of $F$ in $\bar{F}$. The continuity of $\phi$ just means that $\mathcal{W}_{E}$ is open in $\mathcal{W}_{F}$ for each $E$. and it's having dense image means that $\phi$ induces a bijection of homogenous spaces:
+\begin{equation*}
+    \mathcal{W}_{F}/\mathcal{W}_{E}\rightarrow G_{F}/G_{E}\approx Hom_{F}(E,\bar{F})
+\end{equation*}
+for each $E$, and in particular, a group isomorphism $\mathcal{W}_{F}/\mathcal{W}_{E}\approx Gal(E/F)$ when $E/F$ is Galois. The last ingredient of a Weil group is, for each $E$, an isomorphism of topological groups $r_{E}:C_{E}\rightarrow \mathcal{W}^{ab}_{E}$, where
+$C_{E}$ is 
+\begin{enumerate}
+    \item The multiplicative group $E^{*}$ of $E$ in the local case,
+    \item the idele-class group $A^{*}_{E}/E^{*}$ in the global case.
+\end{enumerate}
+\end{defi}
+In order to constitute a Weil group these ingredients must satisfy four conditions:
+\begin{enumerate}
+    \item For each $E$, the composed map
+
+\begin{tikzcd}
+C_{E} \arrow[rr, "r_{E}"] &  & \mathcal{W}^{ab}_{E} \arrow[rr, "\text{induced by}\ \phi"] &  & G^{ab}_{E}
+\end{tikzcd}
+    is the reciprocity law homomorphism of class field theory.
+    \item Let $w\in \mathcal{W}_{F}$ and $\sigma=\phi(w)\in G_{F}$. For each $E$ the following diagram is commutative:
+ 
+ \begin{center}
+\begin{tikzcd}
+C_{E} \arrow[dd, "\text{Induced by }\sigma"'] \arrow[rr, "r_{E}"] &  & \mathcal{W}^{ab}_{E} \arrow[dd, "\text{conjugation by } w"] \\
+                                                                  &  &                                                             \\
+C_{E^{\sigma}} \arrow[rr, "r_{E^{\sigma}}"]                       &  & \mathcal{W}^{ab}_{E^{\sigma}}      
+\end{tikzcd}
+\end{center}
+\item For $E'\subset E$ the diagram
+
+
+\begin{tikzcd}
+C_{E'} \arrow[rr, "r_{E'}"] \arrow[dd, "\text{Induced by inclusion }E'\subset E"'] &  & \mathcal{W}^{ab}_{E'} \arrow[dd, "\text{transfer}"] \\
+                                                                                   &  &                                                     \\
+C_{E} \arrow[rr, "r_{E}"]                                                          &  & \mathcal{W}^{ab}_{E}                               
+\end{tikzcd}
+
+is commutative.
+
+\item The natural map $\mathcal{W}_{F}\rightarrow \lim\limits_{\leftarrow_{E}}\{\mathcal{W}_{E/F}\}$ is an isomorphism of topological groups, where $\mathcal{W}_{E/F}$ denotes $\mathcal{W}_{F}/\mathcal{W}^{c}_{E}$ (not $\mathcal{W}_{F}/\mathcal{W}_{E}$) and the projective limit is taken over all $E$, ordered by inclusion, as $E\rightarrow\bar{F}$. 
+
+\end{enumerate}
+
+This is the Tate's definition for Weil group.
+
+
+
+
+
+\section{Representation of Weil Group}
+\subsection{Easy example in local archimedean case}
+
+
+Let $K$ be finite extension of real numbers, as we known that, $[\mathbb{C}:\mathbb{R}]=2$, so there is no proper subextsion of $\mathbb{R}$. So $K=\mathbb{C}$, $K=\mathbb{R}$, then
+\begin{enumerate}
+    \item $K\cong \mathbb{C}$, then $\mathcal{W}_{\mathbb{R}}=K^{\times}$;
+    \item $K\cong \mathbb{R}$, then $\mathcal{W}_{\mathbb{R}}= \overline{K}^{\times}\bigcup j\overline{K}^{\times}$ for $j^{2}=-1$ and $jcj^{-1}=\overline{c},\ c\in \mathbb{C},\ j\in\{1,i,j,k\}$;
+\end{enumerate}
+\begin{rem}
+Let's give a sketch for this.
+
+\begin{enumerate}
+    \item 
+
+One nontrivial way to look at this result from local class field theory that the abelisation of Weil group of $K$ is isomorphic to the $K^{\times}$. 
+\item When $K\cong\mathbb{R}$, the continuous homomorphism $\phi:\mathcal{W}_{\mathbb{R}}\rightarrow\textbf{Gal}(\mathbb{C}/\mathbb{R})$, then $\phi(\overline{\mathbb{R}}^{\times})=\{c\mapsto c\}\in\textbf{Gal}(\mathbb{C}/\mathbb{R})$, and $\phi(j\overline{\mathbb{R}}^{\times})=\{c\mapsto \Bar{c}\}\in \textbf{Gal}(\mathbb{C}/\mathbb{R})$. By the unit quaternion, we can check the arithmetic rules in $\mathcal{W}_{\mathbb{R}}$.
+And the reason why we use $j$ is  clear as follow.
+\item By the example here, we can feel that for global field, how complicated thing can be. The dream to "compute" $\Omega_{\mathbb{Q}}$ by algebraic extension as equations or taking it as subfield of $\mathbb{C}$ is impossible, which is one of the motivations for Langlands program coming into class field theory.
+\end{enumerate}
+
+
+\end{rem}
+In both case, we can get $\overline{K}^{\times}$ is a normal subgroup of Weil group $\mathcal{W}_{K}$. Then $\mathcal{W}_{K}/\overline{K}^{\times}\cong \text{Gal}(\overline{K}/K)$, giving the exact sequence:
+\begin{center}
+    \begin{tikzcd}
+1 \arrow[r] & \overline{K}^{\times} \arrow[r] & \mathcal{W}_{K} \arrow[r] & \text{Gal}(\overline{K}/K) \arrow[r] & 1
+\end{tikzcd}
+\end{center}
+
+For non-archimedean case, the abelianisation of Weil group is equipped with an isomorphism with $K^{\times}$. For $K\cong \mathbb{C}$, this is clear. But in the real case, this isomorphism needs something more. The commutator subgroup of $\mathcal{W}_{K}$ is of form $\frac{c}{\overline{c}}$ with $c\in\mathbb{C}$, which is the unit circle $\mathcal{S}^{1}$ of $\mathbb{C}^{\times}$.
+
+\begin{tikzcd}
+\mathcal{W}_{\mathbb{R}}/\mathcal{S}^{1} \arrow[rr]                                                            &  & \mathbb{R}_{>0}\bigcup j\mathbb{R}_{>0} \\
+\mathcal{W}_{\mathbb{R}}\cong\overline{\mathbb{R}}^{\times}\bigcup j\overline{\mathbb{R}}^{\times} \arrow[u, equal] &  &                                        
+\end{tikzcd}
+
+and the isomorphism from $\mathbb{R}^{\times}$ to this sends -1 to $j$ and $x>0$ to $\sqrt{x}$. For the other point of view, the isomorphism $\mathcal{W}^{ab}_{\mathbb{R}}\rightarrow \mathbb{R}$ sends $z=x+iy\in \mathbb{C}^{\times}$ to $x^{2}+y^{2}$. In particular it doesn't depend on the choice of isomorphism $\overline{\mathbb{R}}=\mathbb{C}$. The square foot or square we used here are for compatibility of this isomorphism under finite extensions of $K$; 
+
+Next move is we can define a norm $||w||$ on $\mathcal{W}_{K}$. 
+\begin{enumerate}
+    \item If $K\cong \mathbb{C}$, then $||w||=w\overline{w}$ (this doesn't depend on the choice of $K\cong\mathbb{C}$).
+    \item If $K\cong \mathbb{R}$, then $||w||$ is $w\overline{w}$ for $w\in\mathbb{C}^{\times}$. 
+\end{enumerate}
+Note that the norm is a continuous group homomorphism $\mathcal{W}^{ab}_{K}\rightarrow\mathbb{R}_{>0}$ which thus gives rise to a continuous group homomorphism $K^{\times}\rightarrow \mathbb{R}_{>0}$.
+
+Now we can talk about the representation of Weil group here:
+Given a continuous map into $GL(V)$, in which $V$ is a finite-dimensional complex vector space.
+For 1-dimensional representation, it's only finite situations here. We use those 1-dimensional representation to construct thins later.
+\begin{lem}
+\begin{enumerate}
+    \item The only continuous map group homomorphisms $\mathbb{R}\rightarrow\mathbb{C}^{\times}$ are those of the form $x\mapsto \text{exp}(sx)$, and $s\in \mathbb{C}^{\times}$;
+    \item The only continuous group homomorphisms from the unit circle $\mathcal{S}^{1}$ to $\mathbb{C}^{\times}$ are of the form $z\mapsto z^{n}$ for some $n\in\mathbb{Z}$, with distinct $n$ giving distinct homomorphisms.
+    \item The only continuous group homorphisms $\mathbb{R}_{>0}\rightarrow \mathbb{C}^{\times}$ are those of the form $x\mapsto x^{s}:=\text{exp}(s\text{log}(x))$ for $s\in\mathbb{C}^{\times}$, with distinct $s$ giving distinct homorphisms.
+    \item The only continous group homomorphisms $\mathbb{R}^{\times}\rightarrow \mathbb{C}^{\times}$ are of the form $x\mapsto x^{-N}||x||^{s}$ for $s\in\mathbb{C}$ and $N\in\{0,1\}$, and distinct pairs $(N,s)$ give distinct homomorphisms.
+\end{enumerate}
+\end{lem}
+
+So now we have seen all the 1-dimensional representations of Weil groups. In Tate's canonical sense, if $K\cong\mathbb{C}$ then the 1-dimensional representations of $\mathcal{W}_{K}$ are all of the form $z\mapsto \sigma(z)^{-N}||z||^{s}$ with $\sigma: K\rightarrow\mathbb{C}$ in which $N\geq0,\ s\in\mathbb{C}$ an isomorphism，we need both isomorphism to see all the representations. When $N=0$, we don't care about which $\sigma$ we choose. This normalisation is motivated by the study of $L$-functions and $\epsilon$ factors.
+
+By basic arguments, any continuous irreducible finite-dimensional representation of $\mathcal{W}_{\mathbb{C}}$ has an eigenvector and is hence 1-dimensional, so we deduce that we have now een all the irreducible $n$-dimensional representations of $\mathcal{W}_{\mathbb{C}}$. For $\mathcal{W}_{R}$ there are some irreducible 2-dimensional representations. The point is that if $\rho $ is an irreducible representation of $\mathcal{W}_{\mathbb{R}}$ of dimension greater than 1 then the restriction of $\rho$ to $\mathcal{W}_{\mathbb{C}}$ must have an eigenvector, and if it's $v$ then $v$ and $jv$ span an invariant subspace, so the dimension of $\rho$ is 2, and $\rho$ is induced from a character of $\mathcal{W}_{\mathbb{C}}$ is of the form $z\mapsto\sigma(z)^{N}||z||^{s}$ with $N\in\mathbb{Z}_{\geq0}$ and if inducing this 1-dimensional representation then you get a 2 dimensional representation which is irreducible if $N>0$, and reducible if $N=0$.
+\begin{coro}
+The irreducible representations of $\mathcal{W}_{\mathbb{R}}$ are 1-dimensional of the form    $\mathcal{W}^{ab}_{\mathbb{R}}=\mathbb{R}^{\times}\rightarrow\mathbb{C}^{\times}$ via $z\mapsto z^{-N}||z||^{s}$ with $N\in\{0,1\}$ and $s\in\mathbb{C}$, and 2-dimensional induced from a character $z\mapsto\sigma(z)^{-N}||z||^{s}$ on $\mathcal{W}_{\mathbb{C}}$, with $N\in \mathbb{Z}_{>0}$ and $s\in\mathbb{C}$.
+\end{coro}
+
+\subsection{Smooth Representation of Weil group in local non-archimedean case}
+
+Let $U\subset \Omega_{F}$ be an open subgroup, and write $H=U\bigcap\mathcal{W}_{F}$. Then $H/(I_{F}\bigcap H)$, $\forall h\in H$ with $h\equiv n\ \textbf{mod}\ I_{F}\bigcap H$. Then $H=(H\bigcapI_{F})<h>$, $<h>$ is open since it's a union of $\psi$-translates of open subset of $I_{F}$.
+\begin{lem}
+$K/F$ finite extension, s.t. $K\subset \overline{F}$, then the canonical map $\mathcal{W}_{F}/\mathcal{W}_{K}\rightarrow \Omega_{F}/\Omega_{K}$ is a bijection, and $\mathcal{W}_{K}\subset\mathcal{F}$ is normal iff $K/F$ is Galois.
+\end{lem}
+\begin{rem}
+$\Omega_{F}/\Omega_{K}$ gets discrete topology since $K/F$ is finite.
+\end{rem}
+\begin{pf}
+If $K/F$ Galois, then $\Omega_{K}\subset\Omega_{F}$ is normal, hence $\mathcal{W}_{K}=\Omega_{K}\bigcapI\mathcal{W}_{F}$ is normal in $\mathcal{W}_{F}$.
+
+Conversely, if $\mathcal{W}_{K}$ is normal in $\mathcal{W}_{F}$. Let $g\in\Omega_{F}$. Let $g_{0}\in \mathcal{W}_{F}$, s.t. $g_{0}^{-1}g\in\Omega_{K}$(thisexists due to bijection). Write $x=g^{-1}_{0}g$, s.t. $g=g_{0}x$. Then $g\Omega_{K}g^{-1}=g_{0}\Omega_{K}g_{0}^{-1}$.
+\end{pf}
+\begin{defi}
+The representation $(\pi,V)$ is called smooth if for every $v\in V$, there is a compact open subgroup $K$ of $G$ (depending on $v$) s.t. $\pi(x)v=v$, for all $x\in K$. Equivalently, if $V^{K}$ denotes the space of $\pi(K)$-fixed vectors in $V$, then 
+\begin{equation*}
+    V=\bigcup\limits_{K}V^{K}
+\end{equation*}
+where $K$ ranges over the compact open subgroups of $G$.
+\end{defi}
+
+\begin{defi}
+A smooth representation $(\pi,V)$ is called admissible if the space $V^{K}$ is finite-dimensional, for each compact open subgroup $K$ of $G$.
+\end{defi}
+\begin{prop}
+$(\rho,V)$ is an irreducible smooth representation of $\mathcal{W}_{F}$, so $V$ is finite dimensional.
+\end{prop}
+\begin{pf}
+If $v\in V$ is any nonzero element, then $\exists U\subset \mathcal{W}_{F}$ fixing $v$. Assume without loss of generality that $U\subset I_{F}$. Then $\exists U'\subset \Omega_{F}$ wiht $U=U'\bigcapI I_{F}$. Let $K/F$ be finite extension corresponding to $U'$ and assume w.l.o.g. $K/F$ be Galois. 
+
+Now $U\subset \mathcal{W}_{F}=I_{F}\bigcap (U'\bigcap \mathcal{W}_{F})$, so $U$ is normal in $\mathcal{W}_{F}$, Since $xUx^{-1}=U$ fixes $\rho(x)v$. We see that $U$ fixes the subspace $V'$ spanned by the $\rho(x)v$. But $(\rho, V)$ is irreducible, so $V=V'$. So $U$ fixes $V$. Then we get the result that $U\subset \textbf{Ker}\rho$.
+
+Given $\psi_{F}$ the Frobenius element, then by  $\mathcal{W}_{F}=I_{F}\rtimes \mathbb{Z}$, $\psi_{F}^{n}$ acts on $I_{F}$ by conjugation. Hence also on the finite $I_{F}/U$. Therefore, $\exists n$, $\psi_{F}^{n}$ acts trivially on $I_{F}/U$. And the conjugation action of $\psi^{n}_{F}$ on $\rho(I_{F})$, is trivial, i.e. $\rho(\psi^{n}_{F})\rho(I_{K})=\rho(I_{K})\rho(\psi^{n})$. Hence $\rho(\psi^{n}_{F})\rho(\mathcal{W}_{F})=\rho(\mathcal{W}_{F})\rho(\psi^{n}_{F})$ by the Schur's lemma, it acts on $V$ as a scalar.
+
+Hence, for every $w\in V$ the space spanned by $\{\rho(\psi^{n}_{F})w|n\in\mathbb{Z}\}$ is finite dimensional. Letting $w$ range over a basis of the finite dimensional vector space spanned by $\{\rho(x)v|x\in I_{F}\}$. So the $V$ we want is $\{\rho(x)v|x\in I_{F}\}$.
+
+\end{pf}
+\begin{lem}
+If $G$ is profinite, then any smooth representation is semisimple.
+
+\end{lem}
+\begin{pf}
+$(\rho, V)$ smooth representation of $G$, Any vector $v\in V$ is fixed by some compact open normal subgroup $U\subset G$. Then the subrepresentation generated by $v$ is an irreducible representation of finite group $G/U$. Hence finite dimension. Such a representation is semisimple. Hence it's a sum of its irreducible subrepresentation. So we got it. 
+\end{pf}
+
+\begin{rem}
+$\rho$ is finite dimensional representation of $\mathcal{W}_{F}$, the restriction of $\rho$ to the profinite group $I_{F}$ is semisimple, and $\rho(I_{F})$ is fintie.
+\end{rem}
+
+\begin{defi}
+Unramified character $\chi$ of $\Omega_{F}$ or of $\mathcal{W}_{F}$ if trivial on $I_{F}$.
+\end{defi}
+\begin{rem}
+$F\subset K\subset \overline{F}$, then a $[K:F]$- dim representation of $\Omega_{F}$ over $F$. The extension $K/F$ is unramified iff $I_{F}$ acts trivially on $K$. So the name takes sense.
+\end{rem}
+\begin{defi}
+If $\rho$ is smooth finite dimensional representation of $\Omega_{F}$ or $\mathcal{W}_{F}$, the map $x\mapsto \textbf{det}(\rho(x))$ is a character. 
+\end{defi}
+
+\begin{prop}
+Let $\tau$ be irreducible representation of $\mathcal{W}_{F}$. T.F.A.E:
+\begin{enumerate}
+    \item $\tau(\mathcal{W}_{F})$ is finite;
+    \item $\tau\cong \rho\circ \iota_{F}$ for irreducible smooth $\rho$ of $\Omega_{F}$;
+    \item $\textbf{det}\ \tau$ has finite order.
+\end{enumerate}
+For any irreducible smooth representation $\tau$ of $\mathcal{W}_{F}$, there exists unramified character $\chi$ of $\mathcal{W}_{F}$. s.t. $\chi\otimes \tau$ satisfies (1)-(3).
+\end{prop}
+
+
+\begin{defi}
+One says that $(\pi,V)$ is $G$-semisimple if it satisfies the conditions of the proposition. 
+
+Let $G$ be a locally profinte group, and let $(\pi,V)$ be a smooth representation of $G$. The following conditions are equivalent:
+\begin{enumerate}
+    \item $V$ is the sum of its irreducible $G$-subspaces;
+    \item $V$ is the direct sum of a family of irreducible $G$-subspaces;
+    \item any $G$-subspace of $V$ has a $G$-complement in $V$.
+\end{enumerate}
+\end{defi}
+
+\begin{lem}
+Let $E/F$ be a finite separable field extension, $E\subset\overline{F}$.
+\begin{enumerate}
+    \item Let $\rho$ be a smooth representation of $\mathcal{W}_{F}$; then $\rho$ is semisimple iff $\rho_{E}$ is semisimple.
+    \item Let $\tau$ be a smooth representation of $\mathcal{W}_{E}$; then $\tau$ is semisimple iff $Ind_{E/F}\tau$ is semisimple.
+\end{enumerate}
+\end{lem}
+For each integer $n\geq1$, we denote by $\mathfrak{G}^{ss}_{n}(F)$ the set of isomorphism classes of semisimple smooth representation of $\mathcal{W}_{F}$ of dimension $n$. We denote by $\mathfrak{G}^{0}_{n}(F)$ the set of isomorphism classes of irreducible smooth representations of $\mathcal{W}_{F}$ of dimension $n$.
+
+If $E/F$ is a finite extension, $E\subset\overline{F}$, the lemma show that we have induction and restriction maps
+\begin{equation*}
+    Ind_{E/F}:\mathfrak{G}^{ss}_{n}(E)\rightarrow\mathfrak{G}^{ss}_{nd}(F),\\
+    Res_{E/F}:\mathfrak{G}^{ss}_{n}(F)\rightarrow\mathfrak{G}^{ss}_{n}(E),
+\end{equation*}
+where $d=[E:F]$.
+$K/F$ and $k'/F'$ extension of finite degree, isomorphism $\alpha: E\rightarrow E'$ s.t. $\alpha(F)=F'$. Then there is a bijection between $$\mathfrak{G}^{ss}_{n}(F)\leftrightarrow \mathfrak{G}^{ss}_{n}(F').$$
+Moreover,
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBmAJzoBrYAHEAvgD1gcOFID6wMFIAUAaQCUIKaXSZc+QigBM5KrUYs2nHv2FjJs+YpVqtAcl37D2PAIiMgBGK3pmVkQObl5BEXFpOQVlVQ0AMV8DEAwAkyILMOoI22j7OKdE1xSPDJ89KxgoAHN4IlBhCC4kMhAcCCQQvxBO7sQQ6n6kAGZimyiQAEkwKBVNLwB6dK8pPWzRnsmBxAtrSLZl1eBNLd3hg5OjmakKKSA
+\begin{tikzcd}
+\mathfrak{G}^{ss}_{n}(K) \arrow[rr] \arrow[d, "Ind_{K/F}"] &  & \mathfrak{G}^{ss}_{n}(K') \arrow[d, "Ind_{K'/F'}"] \\
+\mathfrak{G}^{ss}_{n}(F) \arrow[rr]                        &  & \mathfrak{G}^{ss}_{n}(F')                         
+\end{tikzcd}
+\end{center}
+\begin{prop}
+Let $(\rho,V)$ be a smooth representation of $\mathcal{W}_{F}$ of finite dimension, and let $\Phi\in \mathcal{W}_{F}$ be a Frobeniius element. The following are equivalent:
+\begin{enumerate}
+    \item the representation $\rho$ is semisimple;
+    \item the automorphism $\rho(\phi)\in Aut_{\mathbb{C}}(V)$ is semisimple;
+    \item the automorphism $\rho(\psi)\in Aut_{\mathbb{C}}(V)$ is semisimple, for every element $\Psi$ of $\mathcal{W}_{F}$.
+\end{enumerate}
+\end{prop}
+
+\end{document}
